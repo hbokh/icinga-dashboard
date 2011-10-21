@@ -2,7 +2,7 @@
 # merlin or ido2utils
 $backend = "ido2utils";
 
-$con = mysql_connect("localhost", "dbuser", "dbpassword") or die("<h3><font color=red>Could not connect to the database!</font></h3>");
+$con = mysql_connect("dbserver", "dbuser", "dbpassword") or die("<h3><font color=red>Could not connect to the database!</font></h3>");
 $db = mysql_select_db("icinga", $con);
 
 ?>
