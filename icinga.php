@@ -1,11 +1,10 @@
 <?php 
     $refreshvalue = 10; //value in seconds to refresh page
-    $pagetitle = "Icinga Dashboard";
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <title><? echo($pagetitle); ?></title>
+        <title>Icinga Dashboard</title>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js">
         </script>
         <style type="text/css">
