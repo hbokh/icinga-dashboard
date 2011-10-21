@@ -1,0 +1,16 @@
+Icinga Dashboard
+================
+
+"Forked" from http://github.com/foobar0815/nagios-dashboard/
+
+Requirements:
+
+- Icinga
+- IDO2db
+
+Installation:
+
+Download the 2 PHP files to your server.
+Edit merlin.php and change the user/pass/dbserver
+so it suits your environment.
+
