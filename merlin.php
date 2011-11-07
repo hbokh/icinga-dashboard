@@ -1,8 +1,8 @@
 <?php
-# merlin or ndoutils
-$backend = "ndoutils";
+# merlin or idoutils
+$backend = "idoutils";
 
-$con = mysql_connect("localhost", "icinga", "icinga") or die("<h3><font color=red>Could not connect to the database!</font></h3>");
+$con = mysql_connect("localhost", "dbname", "dbpasswd") or die("<h3><font color=red>Could not connect to the database!</font></h3>");
 $db = mysql_select_db("icinga", $con);
 
 ?>
@@ -16,7 +16,7 @@ $db = mysql_select_db("icinga", $con);
                 case "merlin":
                     $query = "select host_name, alias, count(host_name) from host where last_hard_state = 1 and problem_has_been_acknowledged = 0 group by host_name";
                     break;
-                case "ndoutils":
+                case "idoutils":
                     $query = "SELECT icinga_hosts.display_name, icinga_hosts.alias from icinga_hosts";
                     $query = $query." LEFT JOIN icinga_hoststatus USING (host_object_id)";
                     $query = $query." WHERE icinga_hoststatus.last_hard_state = 1";
@@ -61,7 +61,7 @@ $db = mysql_select_db("icinga", $con);
                 case "merlin":
                     $query = "select count(1) as count from host where last_hard_state = 1";
                     break;
-                case "ndoutils":
+                case "idoutils":
                     $query = "select count(1) as count from icinga_hoststatus where last_hard_state = 1";
                     break;
             }
@@ -74,7 +74,7 @@ $db = mysql_select_db("icinga", $con);
                 case "merlin":
                     $query = "select count(1) as count from host";
                     break;
-                case "ndoutils":
+                case "idoutils":
                     $query = "select count(1) as count from icinga_hosts";
                     break;
             }
@@ -92,7 +92,7 @@ $db = mysql_select_db("icinga", $con);
                 case "merlin":
                     $query = "select count(1) as count from service where last_hard_state = 1";
                     break;
-                case "ndoutils":
+                case "idoutils":
                     $query = "select count(1) as count from icinga_servicestatus where last_hard_state = 1";
                     break;
             }
@@ -105,7 +105,7 @@ $db = mysql_select_db("icinga", $con);
                 case "merlin":
                     $query = "select count(1) as count from service";
                     break;
-                case "ndoutils":
+                case "idoutils":
                     $query = "select count(1) as count from icinga_services";
                     break;
             }
@@ -174,7 +174,7 @@ $db = mysql_select_db("icinga", $con);
                     $query = $query." service.problem_has_been_acknowledged = 0 and host.problem_has_been_acknowledged = 0 and ";
                     $query = $query." host.last_hard_state not like 1 group by service.service_description order by service.last_hard_state";
                     break;
-                case "ndoutils":
+                case "idoutils":
                     $query = "SELECT icinga_hosts.display_name,icinga_services.display_name,icinga_servicestatus.last_hard_state,icinga_servicestatus.output,icinga_servicestatus.last_hard_state_change,icinga_servicestatus.last_check";
                     $query = $query." FROM icinga_servicestatus";
                     $query = $query." LEFT JOIN icinga_services USING (service_object_id)";
@@ -207,7 +207,7 @@ $db = mysql_select_db("icinga", $con);
                             echo "<td class=\"date date_statechange\">".date("d-m-Y H:i:s", $row[4])."</td>";
                             echo "<td class=\"date date_lastcheck\">".date("d-m-Y H:i:s", $row[5])."</td>";
                             break;
-                        case "ndoutils":
+                        case "idoutils":
                             echo "<td class=\"date date_statechange\">".$row[4]."</td>";
                             echo "<td class=\"date date_lastcheck\">".$row[5]."</td>";
                             break;
