@@ -1,8 +1,8 @@
-<? 
-# merlin or ido2utils
-$backend = "ido2utils";
+<?php
+# merlin or ndoutils
+$backend = "ndoutils";
 
-$con = mysql_connect("dbserver", "dbuser", "dbpassword") or die("<h3><font color=red>Could not connect to the database!</font></h3>");
+$con = mysql_connect("localhost", "icinga", "icinga") or die("<h3><font color=red>Could not connect to the database!</font></h3>");
 $db = mysql_select_db("icinga", $con);
 
 ?>
@@ -10,13 +10,13 @@ $db = mysql_select_db("icinga", $con);
     <h2>Unhandled Hosts down</h2>
     <div class="dash_wrapper">
         <table class="dash_table">
-            <? 
+            <?php
             #ALL down-hosts
-            switch ($backend) { 
+            switch ($backend) {
                 case "merlin":
                     $query = "select host_name, alias, count(host_name) from host where last_hard_state = 1 and problem_has_been_acknowledged = 0 group by host_name";
                     break;
-                case "ido2utils":
+                case "ndoutils":
                     $query = "SELECT icinga_hosts.display_name, icinga_hosts.alias from icinga_hosts";
                     $query = $query." LEFT JOIN icinga_hoststatus USING (host_object_id)";
                     $query = $query." WHERE icinga_hoststatus.last_hard_state = 1";
@@ -30,17 +30,18 @@ $db = mysql_select_db("icinga", $con);
                 $output .=  "<tr class=\"critical\"><td>".$row[0]."</td><td>".$row[1]."</td></tr>";
                 $save .= $row[0];
             }
-            if($save):
+            if($save) {
             ?>
             <tr class="dash_table_head">
                 <th>Hostname</th>
                 <th>Alias</th>
             </tr>
-            <?php print $output; ?>
+                <?= $output ?>
             <?php
-            else: 
+            }
+            else {
                 print "<tr class=\"ok\"><td>All problem hosts has been acknowledged.</td></tr>";
-            endif;
+            }
             ?>
         </table>
     </div>
@@ -54,68 +55,68 @@ $db = mysql_select_db("icinga", $con);
                 <th>Totals</th>
                 <th>Percentage %</th>
             </tr>
-            <? 
+            <?php
             # number of hosts down
             switch ($backend) {
                 case "merlin":
                     $query = "select count(1) as count from host where last_hard_state = 1";
                     break;
-                case "ido2utils":
+                case "ndoutils":
                     $query = "select count(1) as count from icinga_hoststatus where last_hard_state = 1";
                     break;
             }
             $result = mysql_query($query);
             $row = mysql_fetch_array($result);
             $hosts_down = $row[0];
-            
+
             # total number of hosts
             switch ($backend) {
                 case "merlin":
                     $query = "select count(1) as count from host";
                     break;
-                case "ido2utils":
+                case "ndoutils":
                     $query = "select count(1) as count from icinga_hosts";
                     break;
             }
             $result = mysql_query($query);
             $row = mysql_fetch_array($result);
             $total_hosts = $row[0];
-            
+
             $hosts_down_pct = round($hosts_down / $total_hosts * 100, 2);
             $hosts_up = $total_hosts - $hosts_down;
             $hosts_up_pct = round($hosts_up / $total_hosts * 100, 2);
-            
+
             #### SERVICES
             #
             switch ($backend) {
                 case "merlin":
                     $query = "select count(1) as count from service where last_hard_state = 1";
                     break;
-                case "ido2utils":
+                case "ndoutils":
                     $query = "select count(1) as count from icinga_servicestatus where last_hard_state = 1";
                     break;
             }
             $result = mysql_query($query);
             $row = mysql_fetch_array($result);
             $services_down = $row[0];
-            
+
             # total number of services
             switch ($backend) {
                 case "merlin":
                     $query = "select count(1) as count from service";
                     break;
-                case "ido2utils":
+                case "ndoutils":
                     $query = "select count(1) as count from icinga_services";
                     break;
             }
             $result = mysql_query($query);
             $row = mysql_fetch_array($result);
             $total_services = $row[0];
-            
+
             $services_down_pct = round($services_down / $total_services * 100, 2);
             $services_up = $total_services - $services_down;
             $services_up_pct = round($services_up / $total_services * 100, 2);
-            
+
             ?>
             <tr class="ok total_hosts_up">
                 <td>Hosts up</td>
@@ -162,7 +163,7 @@ $db = mysql_select_db("icinga", $con);
                     Last check
                 </th>
             </tr>
-            <? 
+            <?php
             #ALL critical/warning services on hosts not being down or unreachable
             switch ($backend) {
                 case "merlin":
@@ -173,7 +174,7 @@ $db = mysql_select_db("icinga", $con);
                     $query = $query." service.problem_has_been_acknowledged = 0 and host.problem_has_been_acknowledged = 0 and ";
                     $query = $query." host.last_hard_state not like 1 group by service.service_description order by service.last_hard_state";
                     break;
-                case "ido2utils":
+                case "ndoutils":
                     $query = "SELECT icinga_hosts.display_name,icinga_services.display_name,icinga_servicestatus.last_hard_state,icinga_servicestatus.output,icinga_servicestatus.last_hard_state_change,icinga_servicestatus.last_check";
                     $query = $query." FROM icinga_servicestatus";
                     $query = $query." LEFT JOIN icinga_services USING (service_object_id)";
@@ -188,7 +189,7 @@ $db = mysql_select_db("icinga", $con);
             }
             $result = mysql_query($query);
             ?>
-            <? 
+            <?php
             while ($row = mysql_fetch_array($result)) {
                 if ($row[2] == 2) {
                     $class = "critical";
@@ -206,14 +207,14 @@ $db = mysql_select_db("icinga", $con);
                             echo "<td class=\"date date_statechange\">".date("d-m-Y H:i:s", $row[4])."</td>";
                             echo "<td class=\"date date_lastcheck\">".date("d-m-Y H:i:s", $row[5])."</td>";
                             break;
-                        case "ido2utils":
+                        case "ndoutils":
                             echo "<td class=\"date date_statechange\">".$row[4]."</td>";
                             echo "<td class=\"date date_lastcheck\">".$row[5]."</td>";
                             break;
                     }
                     ?>
                 </tr>
-                <?php 
+                <?php
             }
             ?>
         </table>
