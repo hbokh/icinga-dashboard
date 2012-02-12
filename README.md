@@ -3,7 +3,7 @@ Icinga Dashboard
 
 *Forked* from [nagios-dashboard](http://github.com/foobar0815/nagios-dashboard/)
 
-![image](screenshot.png)
+![image](https://github.com/hbokh/icinga-dashboard/raw/master/screenshot.png)
 
 **Requirements**
 
