@@ -1,13 +1,14 @@
-**Icinga Dashboard**
+Icinga Dashboard
+================
 
 "Forked" from [nagios-dashboard](http://github.com/foobar0815/nagios-dashboard/)
 
-Requirements:
+**Requirements**
 
 - a working [Icinga](https://www.icinga.org/)-instance
 - ido2db backend
 
-Installation:
+**Installation**
 
 Put these files into WWW-root/[dir] on your server (e.g. /var/www/dash).
 Edit merlin.php and change the dbserver/dbuser/dbpassword so it suits your environment.
