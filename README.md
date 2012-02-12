@@ -1,7 +1,7 @@
 Icinga Dashboard
-================
+----------------
 
-"Forked" from [nagios-dashboard](http://github.com/foobar0815/nagios-dashboard/)
+*Forked* from [nagios-dashboard](http://github.com/foobar0815/nagios-dashboard/)
 
 **Requirements**
 
