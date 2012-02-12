@@ -171,7 +171,7 @@
             #nagios_placeholder {
             }
             #loading {
-                background: transparent url(throbber.gif) no-repeat center center;
+                background: transparent url(loader.gif) no-repeat center center;
                 width: 24px;
                 height: 40px;
                 position: absolute;
