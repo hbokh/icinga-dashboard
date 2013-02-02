@@ -36,7 +36,7 @@ $db = mysql_select_db("icinga", $con);
                 <th>Hostname</th>
                 <th>Alias</th>
             </tr>
-                <?= $output ?>
+                <?php print $output; ?>
             <?php
             }
             else {
