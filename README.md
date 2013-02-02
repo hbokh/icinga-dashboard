@@ -1,5 +1,4 @@
-Icinga Dashboard
-----------------
+# Icinga Dashboard
 
 ## Status
 
