@@ -6,7 +6,7 @@ Currently not actively "developed". We started using [Nagdash](https://github.co
 
 ## Origin
 
-This code was *forked* from [nagios-dashboard](http://github.com/foobar0815/nagios-dashboard/)
+This code was kinda "forked" from [nagios-dashboard](http://github.com/foobar0815/nagios-dashboard/)
 
 ## Screenshot
 
